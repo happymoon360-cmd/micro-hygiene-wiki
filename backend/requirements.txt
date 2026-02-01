@@ -1,0 +1,18 @@
+# Core Django
+Django==6.0.1
+
+# Database
+psycopg2-binary==2.9.10
+dj-database-url==2.2.0
+
+# CORS
+django-cors-headers==4.6.0
+
+# Security and environment
+python-decouple==3.8
+
+# Production server (for Gunicorn)
+gunicorn==23.0.0
+
+# Whitenoise for static files
+whitenoise==6.8.2

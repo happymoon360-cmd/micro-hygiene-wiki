@@ -2,12 +2,6 @@ import '@testing-library/jest-dom';
 import { cleanup } from '@testing-library/react';
 import { afterEach, vi } from 'vitest';
 
-declare global {
-  interface Window {
-    matchMedia: any;
-  }
-}
-
 // Cleanup after each test
 afterEach(() => {
   cleanup();
@@ -16,7 +10,7 @@ afterEach(() => {
 // Mock window.matchMedia for responsive components
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
-  value: vi.fn().mockImplementation(query => ({
+  value: vi.fn().mockImplementation((query: string) => ({
     matches: false,
     media: query,
     onchange: null,

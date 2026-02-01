@@ -1,0 +1,92 @@
+.tip-detail-page {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.tip-detail-page header {
+  margin-bottom: 2rem;
+}
+
+.tip-detail-page .category-badge {
+  display: inline-block;
+  background-color: #3b82f6;
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+}
+
+.tip-detail-page h1 {
+  font-size: 2.25rem;
+  font-weight: 700;
+  margin: 0.5rem 0;
+  color: #111827;
+}
+
+.tip-detail-page .meta-info {
+  display: flex;
+  gap: 1rem;
+  color: #6b7280;
+  font-size: 0.875rem;
+}
+
+.tip-detail-page .content {
+  margin-top: 2rem;
+}
+
+.tip-detail-page .description {
+  font-size: 1.125rem;
+  line-height: 1.75;
+  color: #374151;
+  margin-bottom: 2rem;
+}
+
+.tip-detail-page .stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.tip-detail-page .stat-card {
+  background-color: #f3f4f6;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  text-align: center;
+}
+
+.tip-detail-page .stat-card h3 {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin: 0 0 0.5rem 0;
+}
+
+.tip-detail-page .stat-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #111827;
+}
+
+.tip-detail-page .rating-summary {
+  background-color: #f9fafb;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+}
+
+.tip-detail-page .rating-summary h3 {
+  margin: 0 0 0.75rem 0;
+  color: #111827;
+}
+
+.tip-detail-page .rating-stars {
+  font-size: 1.5rem;
+  color: #fbbf24;
+  margin-bottom: 0.5rem;
+}
+
+.tip-detail-page .rating-text {
+  color: #6b7280;
+  margin: 0;
+}

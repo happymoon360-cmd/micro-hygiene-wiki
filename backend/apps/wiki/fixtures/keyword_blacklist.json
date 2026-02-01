@@ -1,0 +1,140 @@
+{
+  "model": "wiki.blacklistterm",
+  "fields": [
+    {
+      "term": "cut",
+      "category": "self_harm",
+      "severity": "high"
+    },
+    {
+      "term": "cutting",
+      "category": "self_harm",
+      "severity": "high"
+    },
+    {
+      "term": "needle",
+      "category": "self_harm",
+      "severity": "high"
+    },
+    {
+      "term": "knife",
+      "category": "self_harm",
+      "severity": "high"
+    },
+    {
+      "term": "bleed",
+      "category": "self_harm",
+      "severity": "high"
+    },
+    {
+      "term": "bleeding",
+      "category": "self_harm",
+      "severity": "high"
+    },
+    {
+      "term": "overdose",
+      "category": "self_harm",
+      "severity": "high"
+    },
+    {
+      "term": "overdosing",
+      "category": "self_harm",
+      "severity": "high"
+    },
+    {
+      "term": "suicide",
+      "category": "self_harm",
+      "severity": "high"
+    },
+    {
+      "term": "kill myself",
+      "category": "self_harm",
+      "severity": "high"
+    },
+    {
+      "term": "end my life",
+      "category": "self_harm",
+      "severity": "high"
+    },
+    {
+      "term": "hurt myself",
+      "category": "self_harm",
+      "severity": "high"
+    },
+    {
+      "term": "self harm",
+      "category": "self_harm",
+      "severity": "high"
+    },
+    {
+      "term": "self-harm",
+      "category": "self_harm",
+      "severity": "high"
+    },
+    {
+      "term": "wrist",
+      "category": "self_harm",
+      "severity": "medium"
+    },
+    {
+      "term": "slit",
+      "category": "self_harm",
+      "severity": "high"
+    },
+    {
+      "term": "slash",
+      "category": "self_harm",
+      "severity": "high"
+    },
+    {
+      "term": "razor",
+      "category": "self_harm",
+      "severity": "high"
+    },
+    {
+      "term": "blade",
+      "category": "self_harm",
+      "severity": "high"
+    },
+    {
+      "term": "poison",
+      "category": "self_harm",
+      "severity": "high"
+    },
+    {
+      "term": "drug",
+      "category": "substance_abuse",
+      "severity": "medium"
+    },
+    {
+      "term": "drugs",
+      "category": "substance_abuse",
+      "severity": "medium"
+    },
+    {
+      "term": "pills",
+      "category": "self_harm",
+      "severity": "high"
+    },
+    {
+      "term": "hang",
+      "category": "self_harm",
+      "severity": "high"
+    },
+    {
+      "term": "hanging",
+      "category": "self_harm",
+      "severity": "high"
+    },
+    {
+      "term": "jump",
+      "category": "self_harm",
+      "severity": "high"
+    },
+    {
+      "term": "noose",
+      "category": "self_harm",
+      "severity": "high"
+    }
+  ]
+}

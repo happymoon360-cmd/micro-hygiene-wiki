@@ -1,0 +1,14 @@
+# robots.txt for Micro-Hygiene Wiki
+# Allow all web crawlers to access the site
+
+User-agent: *
+Allow: /
+
+# Disallow admin area
+Disallow: /admin/
+
+# Disallow API endpoints (optional, adjust based on your needs)
+# Disallow: /api/
+
+# Sitemap location
+Sitemap: http://yourdomain.com/sitemap.xml

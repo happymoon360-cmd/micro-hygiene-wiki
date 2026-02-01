@@ -1,0 +1,134 @@
+{
+  "affiliate_mappings": {
+    "amazon": {
+      "vitamin_d3": {
+        "keyword": ["vitamin d3", "vitamin d", "vitamin d supplement", "cholecalciferol"],
+        "name": "Nature Made Vitamin D3 2000 IU",
+        "url": "https://www.amazon.com/dp/B00H1ZQ2J4?tag=YOUR_AMAZON_TAG",
+        "asin": "B00H1ZQ2J4"
+      },
+      "probiotic": {
+        "keyword": ["probiotic", "probiotics", "gut health", "digestive enzymes"],
+        "name": "Garden of Life Dr. Formulated Probiotics",
+        "url": "https://www.amazon.com/dp/B00J0Y8QG4?tag=YOUR_AMAZON_TAG",
+        "asin": "B00J0Y8QG4"
+      },
+      "omega3": {
+        "keyword": ["omega 3", "fish oil", "epa dha", "omega-3"],
+        "name": "Nordic Naturals Ultimate Omega",
+        "url": "https://www.amazon.com/dp/B00FJ4A2Z4?tag=YOUR_AMAZON_TAG",
+        "asin": "B00FJ4A2Z4"
+      },
+      "magnesium": {
+        "keyword": ["magnesium", "magnesium supplement", "mg supplement"],
+        "name": "Doctor's Best High Absorption Magnesium",
+        "url": "https://www.amazon.com/dp/B00M8N0Z0O?tag=YOUR_AMAZON_TAG",
+        "asin": "B00M8N0Z0O"
+      },
+      "water_filter": {
+        "keyword": ["water filter", "water purifier", "water filtration"],
+        "name": "Brita Standard Filter",
+        "url": "https://www.amazon.com/dp/B0046L9D6C?tag=YOUR_AMAZON_TAG",
+        "asin": "B0046L9D6C"
+      },
+      "air_purifier": {
+        "keyword": ["air purifier", "air cleaner", "air filter"],
+        "name": "Levoit Core 300 Air Purifier",
+        "url": "https://www.amazon.com/dp/B07C7DVZQ5?tag=YOUR_AMAZON_TAG",
+        "asin": "B07C7DVZQ5"
+      },
+      "scale": {
+        "keyword": ["scale", "digital scale", "bathroom scale", "body scale"],
+        "name": "RENPHO Body Fat Scale",
+        "url": "https://www.amazon.com/dp/B01N1ZI1R2?tag=YOUR_AMAZON_TAG",
+        "asin": "B01N1ZI1R2"
+      },
+      "sleep_tracker": {
+        "keyword": ["sleep tracker", "sleep monitor", "sleep ring"],
+        "name": "Oura Ring Gen 3",
+        "url": "https://www.amazon.com/dp/B09H8BZYQ9?tag=YOUR_AMAZON_TAG",
+        "asin": "B09H8BZYQ9"
+      },
+      "sunlight_lamp": {
+        "keyword": ["sunlight lamp", "sad lamp", "light therapy", "happy lamp"],
+        "name": "Circadian Optics Light Therapy Lamp",
+        "url": "https://www.amazon.com/dp/B07QF5L3PQ?tag=YOUR_AMAZON_TAG",
+        "asin": "B07QF5L3PQ"
+      },
+      "humidifier": {
+        "keyword": ["humidifier", "air humidifier", "room humidifier"],
+        "name": "Levoit Cool Mist Humidifier",
+        "url": "https://www.amazon.com/dp/B0745J5J2Z?tag=YOUR_AMAZON_TAG",
+        "asin": "B0745J5J2Z"
+      }
+    },
+    "iherb": {
+      "multivitamin": {
+        "keyword": ["multivitamin", "daily vitamin", "complete vitamin"],
+        "name": "NOW Foods ADAM Men's Multiple Vitamin",
+        "url": "https://www.iherb.com/pr/NOW-Foods-ADAM-Men-s-Multiple-Vitamin-180-Veggie-Caps/7569?rcode=YOUR_IHERB_CODE",
+        "product_id": "7569"
+      },
+      "vitamin_c": {
+        "keyword": ["vitamin c", "ascorbic acid", "vitamin c supplement"],
+        "name": "NOW Foods Vitamin C-1000",
+        "url": "https://www.iherb.com/pr/NOW-Foods-Vitamin-C-1-000-mg-250-Capsules/460?rcode=YOUR_IHERB_CODE",
+        "product_id": "460"
+      },
+      "zinc": {
+        "keyword": ["zinc", "zinc supplement", "zinc picolinate"],
+        "name": "NOW Foods Zinc Picolinate 50 mg",
+        "url": "https://www.iherb.com/pr/NOW-Foods-Zinc-Picolinate-50-mg-120-Capsules/2472?rcode=YOUR_IHERB_CODE",
+        "product_id": "2472"
+      },
+      "collagen": {
+        "keyword": ["collagen", "collagen powder", "collagen peptides"],
+        "name": "Sports Research Collagen Peptides",
+        "url": "https://www.iherb.com/pr/Sports-Research-Collagen-Peptides-Powder-Type-I-III-16-oz-454-g/74302?rcode=YOUR_IHERB_CODE",
+        "product_id": "74302"
+      },
+      "ashwagandha": {
+        "keyword": ["ashwagandha", "withania somnifera", "adaptogen"],
+        "name": "Himalaya Organic Ashwagandha",
+        "url": "https://www.iherb.com/pr/Himalaya-Organic-Ashwagandha-60-Capsules/61723?rcode=YOUR_IHERB_CODE",
+        "product_id": "61723"
+      },
+      "turmeric": {
+        "keyword": ["turmeric", "curcumin", "turmeric supplement"],
+        "name": "NOW Foods Curcumin Phytosome",
+        "url": "https://www.iherb.com/pr/NOW-Foods-Curcumin-Phytosome-with-Meriva-60-Veggie-Caps/31632?rcode=YOUR_IHERB_CODE",
+        "product_id": "31632"
+      },
+      "b_complex": {
+        "keyword": ["b complex", "vitamin b complex", "b vitamins"],
+        "name": "Solgar B-Complex 100",
+        "url": "https://www.iherb.com/pr/Solgar-B-Complex-100-100-Tablets/4211?rcode=YOUR_IHERB_CODE",
+        "product_id": "4211"
+      },
+      "electrolytes": {
+        "keyword": ["electrolytes", "electrolyte powder", "hydration"],
+        "name": "Trace Minerals Research ConcenTrace Trace Mineral Drops",
+        "url": "https://www.iherb.com/pr/Trace-Minerals-Research-ConcenTrace-Trace-Mineral-Drops-8-fl-oz-240-ml/4098?rcode=YOUR_IHERB_CODE",
+        "product_id": "4098"
+      },
+      "digestive_enzymes": {
+        "keyword": ["digestive enzymes", "enzyme supplement"],
+        "name": "NOW Foods Super Enzymes",
+        "url": "https://www.iherb.com/pr/NOW-Foods-Super-Enzymes-180-Capsules/6260?rcode=YOUR_IHERB_CODE",
+        "product_id": "6260"
+      },
+      "protein_powder": {
+        "keyword": ["protein powder", "whey protein", "plant protein"],
+        "name": "Natural Factors Whey Protein",
+        "url": "https://www.iherb.com/pr/Natural-Factors-Whey-Protein-Tasteless-100-Natural-1-1-lb-500-g/3222?rcode=YOUR_IHERB_CODE",
+        "product_id": "3222"
+      }
+    }
+  },
+  "metadata": {
+    "version": "1.0",
+    "last_updated": "2026-02-01",
+    "description": "Affiliate product mappings for Amazon and iHerb with keyword-based linking",
+    "note": "Replace YOUR_AMAZON_TAG and YOUR_IHERB_CODE with your actual affiliate IDs"
+  }
+}

@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     "django.contrib.sitemaps",  # Sitemap support
     "django.contrib.sites",  # Sites framework for sitemaps
     "corsheaders",  # CORS support
+    "rest_framework",  # Django REST Framework
     "apps.wiki",  # Local wiki app
 ]
 

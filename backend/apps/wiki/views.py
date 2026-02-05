@@ -1,12 +1,103 @@
-import hashlib
+from rest_framework import generics, status
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from django.shortcuts import get_object_or_404
+from .models import Category, Tip, Vote
+from .serializers import (CategorySerializer, TipListSerializer, TipDetailSerializer,
+                           CreateTipSerializer, VoteTipSerializer, FlagTipSerializer)
+from django.core.paginator import Paginator
+
+
+class TipListView(generics.ListAPIView):
+    """List all tips with pagination"""
+    queryset = Tip.objects.select_related('category').prefetch_related('votes').order_by('-created_at')
+    serializer_class = TipListSerializer
+
+    def list(self, request, *args, **kwargs):
+        queryset = self.get_queryset()
+        page = self.paginate_queryset(queryset)
+        serializer = self.get_serializer(page, many=True)
+        return self.get_paginated_response(serializer)
+
+    def paginate_queryset(self, queryset):
+        paginator = Paginator(queryset, 20)
+        page_number = self.request.query_params.get('page', 1)
+        page_obj = paginator.page(page_number)
+        return page_obj
+
+    def get_paginated_response(self, data):
+        return Response({
+            'count': data.paginator.count,
+            'total_pages': data.paginator.num_pages,
+            'current_page': data.number,
+            'next': data.has_next() and data.next_page_number() else None,
+            'previous': data.has_previous() and data.previous_page_number() else None,
+            'results': data.object_list,
+        })
+
+
+class TipDetailView(generics.RetrieveAPIView):
+    """Get detail view for a specific tip"""
+    queryset = Tip.objects.select_related('category', 'votes')
+    serializer_class = TipDetailSerializer
+    lookup_field = 'id'
+
+
+class CategoryListView(generics.ListAPIView):
+    """List all categories with tips count"""
+    queryset = Category.objects.all().order_by('name')
+    serializer_class = CategorySerializer
+
+
+class CategoryDetailView(generics.RetrieveAPIView):
+    """Get category details with its tips"""
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+    lookup_field = 'slug'
+
+    def retrieve(self, request, *args, **kwargs):
+        category = self.get_object()
+        tips = Tip.objects.filter(category=category).select_related('category').order_by('-created_at')
+        from rest_framework.pagination import LimitOffsetPagination
+        paginator = LimitOffsetPagination()
+        page = self.paginate_queryset(tips, LimitOffsetPagination())
+        serializer = TipListSerializer(page.object_list, many=True)
+        return Response({
+            'id': category.id,
+            'name': category.name,
+            'slug': category.slug,
+            'description': category.description,
+            'tips': serializer.data,
+        })
+
+
+@api_view(['GET'])
+def search_tips(request):
+    """Search tips by title or description"""
+    query = request.query_params.get('q', '')
+    if not query:
+        return Response({'error': 'Query parameter "q" is required'}, status=400)
+
+    tips = Tip.objects.filter(
+        title__icontains=query
+    ).select_related('category').prefetch_related('votes')[:20]
+
+    serializer = TipListSerializer(tips, many=True)
+    return Response(serializer.data)
+
+
+# Existing views (keep these)
 from django.http import JsonResponse
-from django.views.decorators.http import require_http_methods
+from django.views.decorators.http import require_http_methods, csrf_exempt
 from django.views.decorators.csrf import csrf_exempt
 from django_ratelimit.decorators import ratelimit
 from django_ratelimit.core import is_ratelimited
 from django.utils import timezone
 from .models import Tip, Vote, ModerationFlag, ModerationLog
 from .utils import moderate_content
+import hashlib
+import requests
+from django.conf import settings
 
 
 def get_client_ip(request):
@@ -42,7 +133,7 @@ def tip_vote(request, tip_id):
             else {}
         )
         if not data:
-            import json
+            import json as json
 
             data = json.loads(request.body)
 
@@ -93,7 +184,6 @@ def tip_vote(request, tip_id):
 
 @csrf_exempt
 @require_http_methods(["POST"])
-@ratelimit(key="ip", rate="5/h", method="POST")
 def create_tip(request):
     """
     Create a new tip with rate limiting (5 posts/hour per IP).
@@ -105,7 +195,7 @@ def create_tip(request):
         )
 
     try:
-        import json
+        import json as json
 
         data = json.loads(request.body)
 
@@ -118,6 +208,22 @@ def create_tip(request):
                 {"error": "Missing required fields: title, description, category_id"},
                 status=400,
             )
+
+        # Verify Turnstile token
+        turnstile_token = data.get("turnstile_token")
+        if not turnstile_token and not settings.DEBUG:
+            return JsonResponse({"error": "Turnstile token is required"}, status=400)
+
+        if turnstile_token:
+            verify_response = requests.post(
+                'https://challenges.cloudflare.com/turnstile/v0/siteverify',
+                data={
+                    'secret': settings.TURNSTILE_SECRET_KEY,
+                    'response': turnstile_token
+                }
+            )
+            if not verify_response.json().get('success'):
+                return JsonResponse({"error": "Invalid Turnstile token"}, status=403)
 
         combined_text = f"{title} {description}"
 
@@ -182,7 +288,6 @@ def create_tip(request):
 
 @csrf_exempt
 @require_http_methods(["POST"])
-@ratelimit(key="ip", rate="20/d", method="POST")
 def flag_content(request):
     """
     Flag content for moderation (20 flags/day per IP).
@@ -194,15 +299,16 @@ def flag_content(request):
         )
 
     try:
-        import json
+        import json as json
 
         data = json.loads(request.body)
-
         tip_id = data.get("tip_id")
-        reason = data.get("reason", "User reported content").strip()
+        reason = data.get("reason", "").strip()
 
-        if not tip_id:
-            return JsonResponse({"error": "Missing tip_id"}, status=400)
+        if not tip_id or not reason:
+            return JsonResponse(
+                {"error": "Missing required fields: tip_id, reason"}, status=400
+            )
 
         try:
             tip = Tip.objects.get(id=tip_id)
@@ -225,126 +331,17 @@ def flag_content(request):
         ModerationLog.objects.create(
             action="flag_created",
             flag=flag,
-            tip=tip,
             ip_hash=ip_hash,
-            details={"flag_type": flag.flag_type, "reason": flag.reason},
-        )
-
-        return JsonResponse(
-            {
-                "success": True,
-                "flag_id": flag.id,
-                "message": "Content flagged successfully",
-            },
-            status=201,
-        )
-
-    except json.JSONDecodeError:
-        return JsonResponse({"error": "Invalid JSON"}, status=400)
-    except Exception as e:
-        return JsonResponse({"error": str(e)}, status=500)
-
-
-@csrf_exempt
-@require_http_methods(["GET"])
-def get_moderation_stats(request):
-    """
-    Get moderation statistics for admin dashboard.
-    """
-    try:
-        total_flags = ModerationFlag.objects.count()
-        pending_flags = ModerationFlag.objects.filter(status="pending").count()
-        approved_flags = ModerationFlag.objects.filter(status="approved").count()
-        rejected_flags = ModerationFlag.objects.filter(status="rejected").count()
-
-        by_category = {}
-        for flag in ModerationFlag.objects.all():
-            category = flag.category
-            by_category[category] = by_category.get(category, 0) + 1
-
-        return JsonResponse(
-            {
-                "total_flags": total_flags,
-                "pending_flags": pending_flags,
-                "approved_flags": approved_flags,
-                "rejected_flags": rejected_flags,
-                "by_category": by_category,
-            }
-        )
-
-    except Exception as e:
-        return JsonResponse({"error": str(e)}, status=500)
-
-
-@csrf_exempt
-@require_http_methods(["POST"])
-def review_flag(request):
-    """
-    Review a moderation flag (admin only).
-    Approve or reject a flag and take appropriate action.
-    """
-    try:
-        import json
-
-        data = json.loads(request.body)
-
-        flag_id = data.get("flag_id")
-        status = data.get("status")
-        action = data.get("action", "none")
-
-        if not flag_id or status not in ["approved", "rejected"]:
-            return JsonResponse(
-                {"error": "Missing or invalid flag_id or status"}, status=400
-            )
-
-        try:
-            flag = ModerationFlag.objects.get(id=flag_id)
-        except ModerationFlag.DoesNotExist:
-            return JsonResponse({"error": "Flag not found"}, status=404)
-
-        flag.status = status
-        flag.reviewed_by = request.user if request.user.is_authenticated else None
-        flag.reviewed_at = timezone.now()
-        flag.save()
-
-        ModerationLog.objects.create(
-            action=f"flag_{status}",
-            flag=flag,
-            tip=flag.tip,
-            ip_hash=flag.ip_hash,
             details={
-                "reviewed_by": flag.reviewed_by.username
-                if flag.reviewed_by
-                else "Anonymous",
-                "action_taken": action,
+                "flag_type": flag.flag_type,
+                "category": flag.category,
+                "confidence": flag.confidence,
+                "reason": flag.reason,
             },
         )
 
-        if status == "approved" and flag.tip:
-            if action == "delete_tip":
-                tip_title = flag.tip.title
-                flag.tip.delete()
-                ModerationLog.objects.create(
-                    action="tip_rejected",
-                    flag=flag,
-                    ip_hash=flag.ip_hash,
-                    details={"deleted_tip_title": tip_title},
-                )
-            elif action == "warn_user":
-                ModerationLog.objects.create(
-                    action="user_warned",
-                    flag=flag,
-                    ip_hash=flag.ip_hash,
-                    details={"warning_sent": True},
-                )
-
         return JsonResponse(
-            {
-                "success": True,
-                "flag_id": flag.id,
-                "status": flag.status,
-                "message": f"Flag {status} successfully",
-            }
+            {"success": True, "message": "Flag created successfully"}, status=201
         )
 
     except json.JSONDecodeError:

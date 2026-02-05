@@ -449,7 +449,6 @@ class AIModerator:
                 'category': None,
                 'all_scores': {}
             }
-        """
         if not text or not text.strip():
             return {
                 "is_flagged": False,

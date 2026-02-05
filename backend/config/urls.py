@@ -53,6 +53,7 @@ Sitemap: /sitemap.xml
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("api/", include("apps.wiki.urls")),
     path("robots.txt", robots_txt),
     path(
         "sitemap.xml",

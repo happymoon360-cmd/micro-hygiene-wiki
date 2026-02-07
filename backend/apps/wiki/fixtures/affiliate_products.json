@@ -1,134 +1,266 @@
 {
   "affiliate_mappings": {
     "amazon": {
-      "vitamin_d3": {
-        "keyword": ["vitamin d3", "vitamin d", "vitamin d supplement", "cholecalciferol"],
-        "name": "Nature Made Vitamin D3 2000 IU",
-        "url": "https://www.amazon.com/dp/B00H1ZQ2J4?tag=YOUR_AMAZON_TAG",
-        "asin": "B00H1ZQ2J4"
+      "hand_sanitizer_60_percent": {
+        "keyword": ["hand sanitizer", "alcohol hand sanitizer", "60 alcohol sanitizer", "hand rub"],
+        "name": "Purell Advanced Hand Sanitizer, 60% Alcohol",
+        "url": "https://amazon.com/dp/PLACEHOLDER_ASIN?tag=YOUR_TAG",
+        "category": "hand_hygiene",
+        "asin": "PLACEHOLDER_ASIN"
       },
-      "probiotic": {
-        "keyword": ["probiotic", "probiotics", "gut health", "digestive enzymes"],
-        "name": "Garden of Life Dr. Formulated Probiotics",
-        "url": "https://www.amazon.com/dp/B00J0Y8QG4?tag=YOUR_AMAZON_TAG",
-        "asin": "B00J0Y8QG4"
+      "antibacterial_soap_mild": {
+        "keyword": ["antibacterial soap", "mild hand soap", "ph balanced soap", "gentle hand soap"],
+        "name": "Dial Gold Antibacterial Hand Soap",
+        "url": "https://amazon.com/dp/PLACEHOLDER_ASIN?tag=YOUR_TAG",
+        "category": "hand_hygiene",
+        "asin": "PLACEHOLDER_ASIN"
       },
-      "omega3": {
-        "keyword": ["omega 3", "fish oil", "epa dha", "omega-3"],
-        "name": "Nordic Naturals Ultimate Omega",
-        "url": "https://www.amazon.com/dp/B00FJ4A2Z4?tag=YOUR_AMAZON_TAG",
-        "asin": "B00FJ4A2Z4"
+      "hand_soap_bar_mild": {
+        "keyword": ["bar soap", "mild bar soap", "unscented soap", "hypoallergenic soap"],
+        "name": "Dove Beauty Bar Sensitive Skin",
+        "url": "https://amazon.com/dp/PLACEHOLDER_ASIN?tag=YOUR_TAG",
+        "category": "hand_hygiene",
+        "asin": "PLACEHOLDER_ASIN"
       },
-      "magnesium": {
-        "keyword": ["magnesium", "magnesium supplement", "mg supplement"],
-        "name": "Doctor's Best High Absorption Magnesium",
-        "url": "https://www.amazon.com/dp/B00M8N0Z0O?tag=YOUR_AMAZON_TAG",
-        "asin": "B00M8N0Z0O"
+      "fluoride_toothpaste": {
+        "keyword": ["fluoride toothpaste", "cavity protection toothpaste", "toothpaste fluoride"],
+        "name": "Colgate Total Whitening Toothpaste with Fluoride",
+        "url": "https://amazon.com/dp/PLACEHOLDER_ASIN?tag=YOUR_TAG",
+        "category": "oral_hygiene",
+        "asin": "PLACEHOLDER_ASIN"
       },
-      "water_filter": {
-        "keyword": ["water filter", "water purifier", "water filtration"],
-        "name": "Brita Standard Filter",
-        "url": "https://www.amazon.com/dp/B0046L9D6C?tag=YOUR_AMAZON_TAG",
-        "asin": "B0046L9D6C"
+      "dental_floss_waxed": {
+        "keyword": ["dental floss", "waxed floss", "teeth floss", "floss pick"],
+        "name": "Oral-B Glide Pro-Health Floss",
+        "url": "https://amazon.com/dp/PLACEHOLDER_ASIN?tag=YOUR_TAG",
+        "category": "oral_hygiene",
+        "asin": "PLACEHOLDER_ASIN"
       },
-      "air_purifier": {
-        "keyword": ["air purifier", "air cleaner", "air filter"],
-        "name": "Levoit Core 300 Air Purifier",
-        "url": "https://www.amazon.com/dp/B07C7DVZQ5?tag=YOUR_AMAZON_TAG",
-        "asin": "B07C7DVZQ5"
+      "soft_bristle_toothbrush": {
+        "keyword": ["soft toothbrush", "soft bristle toothbrush", "gentle toothbrush"],
+        "name": "Oral-B Pro-Health Soft Toothbrush",
+        "url": "https://amazon.com/dp/PLACEHOLDER_ASIN?tag=YOUR_TAG",
+        "category": "oral_hygiene",
+        "asin": "PLACEHOLDER_ASIN"
       },
-      "scale": {
-        "keyword": ["scale", "digital scale", "bathroom scale", "body scale"],
-        "name": "RENPHO Body Fat Scale",
-        "url": "https://www.amazon.com/dp/B01N1ZI1R2?tag=YOUR_AMAZON_TAG",
-        "asin": "B01N1ZI1R2"
+      "tongue_scraper": {
+        "keyword": ["tongue scraper", "tongue cleaner", "oral hygiene tool", "bad breath remedy"],
+        "name": "Dr. Tung's Tongue Scraper",
+        "url": "https://amazon.com/dp/PLACEHOLDER_ASIN?tag=YOUR_TAG",
+        "category": "oral_hygiene",
+        "asin": "PLACEHOLDER_ASIN"
       },
-      "sleep_tracker": {
-        "keyword": ["sleep tracker", "sleep monitor", "sleep ring"],
-        "name": "Oura Ring Gen 3",
-        "url": "https://www.amazon.com/dp/B09H8BZYQ9?tag=YOUR_AMAZON_TAG",
-        "asin": "B09H8BZYQ9"
+      "antiseptic_mouthwash": {
+        "keyword": ["mouthwash", "antiseptic mouthwash", "bad breath mouthwash", "oral rinse"],
+        "name": "Listerine Cool Mint Antiseptic Mouthwash",
+        "url": "https://amazon.com/dp/PLACEHOLDER_ASIN?tag=YOUR_TAG",
+        "category": "oral_hygiene",
+        "asin": "PLACEHOLDER_ASIN"
       },
-      "sunlight_lamp": {
-        "keyword": ["sunlight lamp", "sad lamp", "light therapy", "happy lamp"],
-        "name": "Circadian Optics Light Therapy Lamp",
-        "url": "https://www.amazon.com/dp/B07QF5L3PQ?tag=YOUR_AMAZON_TAG",
-        "asin": "B07QF5L3PQ"
+      "body_wash_mild": {
+        "keyword": ["body wash", "mild body wash", "sensitive skin body wash", "fragrance free body wash"],
+        "name": "Cetaphil Gentle Skin Cleanser Body Wash",
+        "url": "https://amazon.com/dp/PLACEHOLDER_ASIN?tag=YOUR_TAG",
+        "category": "body_hygiene",
+        "asin": "PLACEHOLDER_ASIN"
       },
-      "humidifier": {
-        "keyword": ["humidifier", "air humidifier", "room humidifier"],
-        "name": "Levoit Cool Mist Humidifier",
-        "url": "https://www.amazon.com/dp/B0745J5J2Z?tag=YOUR_AMAZON_TAG",
-        "asin": "B0745J5J2Z"
+      "moisturizer_lotion": {
+        "keyword": ["body lotion", "moisturizer", "dry skin lotion", "body moisturizer"],
+        "name": "CeraVe Daily Moisturizing Lotion",
+        "url": "https://amazon.com/dp/PLACEHOLDER_ASIN?tag=YOUR_TAG",
+        "category": "body_hygiene",
+        "asin": "PLACEHOLDER_ASIN"
+      },
+      "body_scrub_exfoliant": {
+        "keyword": ["body scrub", "exfoliating scrub", "body exfoliant", "scrub for body"],
+        "name": "Tree Hut Shea Sugar Body Scrub",
+        "url": "https://amazon.com/dp/PLACEHOLDER_ASIN?tag=YOUR_TAG",
+        "category": "body_hygiene",
+        "asin": "PLACEHOLDER_ASIN"
+      },
+      "gentle_face_cleanser": {
+        "keyword": ["face cleanser", "facial cleanser", "gentle face wash", "sensitive skin cleanser"],
+        "name": "CeraVe Foaming Facial Cleanser",
+        "url": "https://amazon.com/dp/PLACEHOLDER_ASIN?tag=YOUR_TAG",
+        "category": "facial_hygiene",
+        "asin": "PLACEHOLDER_ASIN"
+      },
+      "sunscreen_spf_30": {
+        "keyword": ["sunscreen", "spf 30 sunscreen", "face sunscreen", "daily sunscreen"],
+        "name": "Neutrogena Ultra Sheer Sunscreen SPF 30",
+        "url": "https://amazon.com/dp/PLACEHOLDER_ASIN?tag=YOUR_TAG",
+        "category": "facial_hygiene",
+        "asin": "PLACEHOLDER_ASIN"
+      },
+      "makeup_remover_wipes": {
+        "keyword": ["makeup remover", "makeup wipes", "facial cleansing wipes", "makeup removal wipes"],
+        "name": "Neutrogena Makeup Remover Wipes",
+        "url": "https://amazon.com/dp/PLACEHOLDER_ASIN?tag=YOUR_TAG",
+        "category": "facial_hygiene",
+        "asin": "PLACEHOLDER_ASIN"
+      },
+      "conditioner_hair": {
+        "keyword": ["hair conditioner", "leave in conditioner", "deep conditioner", "hair moisturizer"],
+        "name": "Pantene Pro-V Daily Moisture Conditioner",
+        "url": "https://amazon.com/dp/PLACEHOLDER_ASIN?tag=YOUR_TAG",
+        "category": "hair_hygiene",
+        "asin": "PLACEHOLDER_ASIN"
+      },
+      "nail_brush": {
+        "keyword": ["nail brush", "fingernail brush", "hand nail brush", "under nail cleaner"],
+        "name": "Sally Hansen Nail Brush",
+        "url": "https://amazon.com/dp/PLACEHOLDER_ASIN?tag=YOUR_TAG",
+        "category": "nail_hygiene",
+        "asin": "PLACEHOLDER_ASIN"
+      },
+      "nail_clipper_stainless": {
+        "keyword": ["nail clipper", "fingernail clippers", "toenail clippers", "stainless nail clipper"],
+        "name": "Seki Edge Stainless Steel Nail Clipper",
+        "url": "https://amazon.com/dp/PLACEHOLDER_ASIN?tag=YOUR_TAG",
+        "category": "nail_hygiene",
+        "asin": "PLACEHOLDER_ASIN"
+      },
+      "cuticle_pusher": {
+        "keyword": ["cuticle pusher", "cuticle tool", "manicure tool", "cuticle trimmer"],
+        "name": "Revlon Cuticle Pusher",
+        "url": "https://amazon.com/dp/PLACEHOLDER_ASIN?tag=YOUR_TAG",
+        "category": "nail_hygiene",
+        "asin": "PLACEHOLDER_ASIN"
+      },
+      "baby_wipes": {
+        "keyword": ["baby wipes", "flushable wipes", "wipes for hygiene", "personal wipes"],
+        "name": "Huggies Natural Care Baby Wipes",
+        "url": "https://amazon.com/dp/PLACEHOLDER_ASIN?tag=YOUR_TAG",
+        "category": "intimate_hygiene",
+        "asin": "PLACEHOLDER_ASIN"
+      },
+      "feminine_wash": {
+        "keyword": ["feminine wash", "ph balanced wash", "gentle feminine cleanser"],
+        "name": "Summer's Eve Feminine Wash",
+        "url": "https://amazon.com/dp/PLACEHOLDER_ASIN?tag=YOUR_TAG",
+        "category": "intimate_hygiene",
+        "asin": "PLACEHOLDER_ASIN"
+      },
+      "phone_screen_cleaner": {
+        "keyword": ["phone cleaner", "screen cleaner", "phone disinfectant", "electronic wipes"],
+        "name": "Whoosh! Screen Cleaner Kit",
+        "url": "https://amazon.com/dp/PLACEHOLDER_ASIN?tag=YOUR_TAG",
+        "category": "environmental_hygiene",
+        "asin": "PLACEHOLDER_ASIN"
+      },
+      "disinfecting_wipes": {
+        "keyword": ["disinfectant wipes", "cleaning wipes", "antibacterial wipes", "surface wipes"],
+        "name": "Clorox Disinfecting Wipes",
+        "url": "https://amazon.com/dp/PLACEHOLDER_ASIN?tag=YOUR_TAG",
+        "category": "environmental_hygiene",
+        "asin": "PLACEHOLDER_ASIN"
+      },
+      "air_purifier_hepa": {
+        "keyword": ["air purifier", "hepa air purifier", "home air cleaner", "room air purifier"],
+        "name": "Levoit Core 300 Air Purifier with HEPA Filter",
+        "url": "https://amazon.com/dp/PLACEHOLDER_ASIN?tag=YOUR_TAG",
+        "category": "environmental_hygiene",
+        "asin": "PLACEHOLDER_ASIN"
+      },
+      "blackout_curtains": {
+        "keyword": ["blackout curtains", "room darkening curtains", "sleep curtains", "thermal curtains"],
+        "name": "Nicetown Blackout Curtains",
+        "url": "https://amazon.com/dp/PLACEHOLDER_ASIN?tag=YOUR_TAG",
+        "category": "sleep_hygiene",
+        "asin": "PLACEHOLDER_ASIN"
+      },
+      "sleep_mask": {
+        "keyword": ["sleep mask", "eye mask for sleeping", "contour sleep mask", "silk eye mask"],
+        "name": "Mzoo Sleep Eye Mask",
+        "url": "https://amazon.com/dp/PLACEHOLDER_ASIN?tag=YOUR_TAG",
+        "category": "sleep_hygiene",
+        "asin": "PLACEHOLDER_ASIN"
+      },
+      "kitchen_sponge_set": {
+        "keyword": ["kitchen sponge", "scrub sponge", "dish sponge", "cleaning sponge"],
+        "name": "Scotch-Brite Heavy Duty Scrub Sponges",
+        "url": "https://amazon.com/dp/PLACEHOLDER_ASIN?tag=YOUR_TAG",
+        "category": "food_hygiene",
+        "asin": "PLACEHOLDER_ASIN"
+      },
+      "cutting_board_wood": {
+        "keyword": ["cutting board", "wood cutting board", "chopping board", "food prep board"],
+        "name": "John Boos Maple Wood Cutting Board",
+        "url": "https://amazon.com/dp/PLACEHOLDER_ASIN?tag=YOUR_TAG",
+        "category": "food_hygiene",
+        "asin": "PLACEHOLDER_ASIN"
+      },
+      "dish_soap": {
+        "keyword": ["dish soap", "dishwashing liquid", "hand dish soap", "kitchen soap"],
+        "name": "Dawn Ultra Dishwashing Liquid",
+        "url": "https://amazon.com/dp/PLACEHOLDER_ASIN?tag=YOUR_TAG",
+        "category": "food_hygiene",
+        "asin": "PLACEHOLDER_ASIN"
+      },
+      "flip_flops_shower": {
+        "keyword": ["shower flip flops", "gym shower shoes", "water shoes", "pool sandals"],
+        "name": "Speedo Men's Surfwalker Pro Water Shoe",
+        "url": "https://amazon.com/dp/PLACEHOLDER_ASIN?tag=YOUR_TAG",
+        "category": "travel_hygiene",
+        "asin": "PLACEHOLDER_ASIN"
+      },
+      "travel_hand_sanitizer": {
+        "keyword": ["travel sanitizer", "portable sanitizer", "travel size sanitizer", "mini hand sanitizer"],
+        "name": "Purell Travel Hand Sanitizer 1 oz",
+        "url": "https://amazon.com/dp/PLACEHOLDER_ASIN?tag=YOUR_TAG",
+        "category": "travel_hygiene",
+        "asin": "PLACEHOLDER_ASIN"
       }
     },
     "iherb": {
-      "multivitamin": {
-        "keyword": ["multivitamin", "daily vitamin", "complete vitamin"],
-        "name": "NOW Foods ADAM Men's Multiple Vitamin",
-        "url": "https://www.iherb.com/pr/NOW-Foods-ADAM-Men-s-Multiple-Vitamin-180-Veggie-Caps/7569?rcode=YOUR_IHERB_CODE",
-        "product_id": "7569"
+      "vitamin_c_serum": {
+        "keyword": ["vitamin c serum", "skin serum", "face serum", "antioxidant serum"],
+        "name": "Now Foods Vitamin C Serum 1 fl oz",
+        "url": "https://www.iherb.com/pr/NOW-Foods-Solutions-Clinical-Topical-Vitamin-C-30-ml/73827?rcode=YOUR_IHERB_CODE",
+        "category": "facial_hygiene",
+        "product_id": "73827"
       },
-      "vitamin_c": {
-        "keyword": ["vitamin c", "ascorbic acid", "vitamin c supplement"],
-        "name": "NOW Foods Vitamin C-1000",
-        "url": "https://www.iherb.com/pr/NOW-Foods-Vitamin-C-1-000-mg-250-Capsules/460?rcode=YOUR_IHERB_CODE",
-        "product_id": "460"
+      "tea_tree_oil": {
+        "keyword": ["tea tree oil", "essential oil", "antifungal oil", "tea tree pure"],
+        "name": "Now Foods Tea Tree Oil 1 fl oz",
+        "url": "https://www.iherb.com/pr/NOW-Foods-Essential-Oils-Tea-Tree-1-fl-oz-30-ml/4919?rcode=YOUR_IHERB_CODE",
+        "category": "body_hygiene",
+        "product_id": "4919"
       },
-      "zinc": {
-        "keyword": ["zinc", "zinc supplement", "zinc picolinate"],
-        "name": "NOW Foods Zinc Picolinate 50 mg",
-        "url": "https://www.iherb.com/pr/NOW-Foods-Zinc-Picolinate-50-mg-120-Capsules/2472?rcode=YOUR_IHERB_CODE",
-        "product_id": "2472"
+      "aloe_vera_gel": {
+        "keyword": ["aloe vera gel", "soothing gel", "after sun gel", "natural aloe"],
+        "name": "Lily of the Desert Aloe Vera Gelly 4 fl oz",
+        "url": "https://www.iherb.com/pr/Lily-of-the-Desert-Aloe-Vera-Gelly-4-fl-oz-120-ml/4275?rcode=YOUR_IHERB_CODE",
+        "category": "body_hygiene",
+        "product_id": "4275"
       },
-      "collagen": {
-        "keyword": ["collagen", "collagen powder", "collagen peptides"],
-        "name": "Sports Research Collagen Peptides",
-        "url": "https://www.iherb.com/pr/Sports-Research-Collagen-Peptides-Powder-Type-I-III-16-oz-454-g/74302?rcode=YOUR_IHERB_CODE",
-        "product_id": "74302"
+      "coconut_oil": {
+        "keyword": ["coconut oil", "organic coconut oil", "skin moisturizer", "hair oil"],
+        "name": "Now Foods Organic Coconut Oil 16 oz",
+        "url": "https://www.iherb.com/pr/NOW-Foods-Solutions-Organic-Coconut-Oil-16-fl-oz-473-ml/7135?rcode=YOUR_IHERB_CODE",
+        "category": "hair_hygiene",
+        "product_id": "7135"
       },
-      "ashwagandha": {
-        "keyword": ["ashwagandha", "withania somnifera", "adaptogen"],
-        "name": "Himalaya Organic Ashwagandha",
-        "url": "https://www.iherb.com/pr/Himalaya-Organic-Ashwagandha-60-Capsules/61723?rcode=YOUR_IHERB_CODE",
-        "product_id": "61723"
+      "probiotic_oral": {
+        "keyword": ["probiotic oral", "oral probiotics", "dental probiotic", "mouth probiotics"],
+        "name": "Hyperbiotics PRO-Dental Advanced Oral Probiotics",
+        "url": "https://www.iherb.com/pr/Hyperbiotics-PRO-Dental-Advanced-Oral-Probiotics-60-Lozenges/79187?rcode=YOUR_IHERB_CODE",
+        "category": "oral_hygiene",
+        "product_id": "79187"
       },
-      "turmeric": {
-        "keyword": ["turmeric", "curcumin", "turmeric supplement"],
-        "name": "NOW Foods Curcumin Phytosome",
-        "url": "https://www.iherb.com/pr/NOW-Foods-Curcumin-Phytosome-with-Meriva-60-Veggie-Caps/31632?rcode=YOUR_IHERB_CODE",
-        "product_id": "31632"
-      },
-      "b_complex": {
-        "keyword": ["b complex", "vitamin b complex", "b vitamins"],
-        "name": "Solgar B-Complex 100",
-        "url": "https://www.iherb.com/pr/Solgar-B-Complex-100-100-Tablets/4211?rcode=YOUR_IHERB_CODE",
-        "product_id": "4211"
-      },
-      "electrolytes": {
-        "keyword": ["electrolytes", "electrolyte powder", "hydration"],
-        "name": "Trace Minerals Research ConcenTrace Trace Mineral Drops",
-        "url": "https://www.iherb.com/pr/Trace-Minerals-Research-ConcenTrace-Trace-Mineral-Drops-8-fl-oz-240-ml/4098?rcode=YOUR_IHERB_CODE",
-        "product_id": "4098"
-      },
-      "digestive_enzymes": {
-        "keyword": ["digestive enzymes", "enzyme supplement"],
-        "name": "NOW Foods Super Enzymes",
-        "url": "https://www.iherb.com/pr/NOW-Foods-Super-Enzymes-180-Capsules/6260?rcode=YOUR_IHERB_CODE",
-        "product_id": "6260"
-      },
-      "protein_powder": {
-        "keyword": ["protein powder", "whey protein", "plant protein"],
-        "name": "Natural Factors Whey Protein",
-        "url": "https://www.iherb.com/pr/Natural-Factors-Whey-Protein-Tasteless-100-Natural-1-1-lb-500-g/3222?rcode=YOUR_IHERB_CODE",
-        "product_id": "3222"
+      "biodegradable_wipes": {
+        "keyword": ["biodegradable wipes", "eco wipes", "natural wipes", "flushable wipes"],
+        "name": "Jackson Reece Baby Wipes",
+        "url": "https://www.iherb.com/pr/Jackson-Reece-Herbal-Baby-Wipes-72-Wipes/41616?rcode=YOUR_IHERB_CODE",
+        "category": "intimate_hygiene",
+        "product_id": "41616"
       }
     }
   },
   "metadata": {
-    "version": "1.0",
-    "last_updated": "2026-02-01",
-    "description": "Affiliate product mappings for Amazon and iHerb with keyword-based linking",
-    "note": "Replace YOUR_AMAZON_TAG and YOUR_IHERB_CODE with your actual affiliate IDs"
+    "version": "2.0",
+    "last_updated": "2026-02-07",
+    "description": "Affiliate product mappings for Amazon and iHerb with keyword-based linking focused on hygiene products",
+    "note": "Replace YOUR_TAG and YOUR_IHERB_CODE with your actual affiliate IDs. Replace PLACEHOLDER_ASIN with actual Amazon ASINs."
   }
 }

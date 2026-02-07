@@ -124,8 +124,7 @@ def hash_ip(ip):
     return hashlib.sha256(ip.encode()).hexdigest()
 
 
-@csrf_exempt
-@require_http_methods(["POST"])
+@api_view(['POST'])
 def tip_vote(request, tip_id):
     """Handle voting on a tip. One vote per IP per tip."""
     try:
@@ -189,8 +188,7 @@ def tip_vote(request, tip_id):
     )
 
 
-@csrf_exempt
-@require_http_methods(["POST"])
+@api_view(['POST'])
 def create_tip(request):
     """
     Create a new tip with rate limiting (5 posts/hour per IP).
@@ -291,8 +289,7 @@ def create_tip(request):
         return Response({"error": str(e)}, status=500)
 
 
-@csrf_exempt
-@require_http_methods(["POST"])
+@api_view(['POST'])
 def flag_content(request, tip_id):
     """
     Flag content for moderation (20 flags/day per IP).

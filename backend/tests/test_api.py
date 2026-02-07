@@ -26,7 +26,7 @@ class TestTipListView:
         data = response.json()
         assert data['count'] == 0
         assert data['results'] == []
-        assert data['total_pages'] == 0
+        assert data['total_pages'] == 1  # Empty queryset still has 1 page
         assert data['current_page'] == 1
 
     def test_list_tips_with_data(self, client):
@@ -472,7 +472,7 @@ class TestFlagContent:
         }
         
         response = client.post(
-            '/api/tips/flag/',
+            f'/api/tips/{tip.id}/flag/',
             data=json.dumps(data),
             content_type='application/json'
         )
@@ -486,10 +486,12 @@ class TestFlagContent:
 
     def test_flag_content_missing_fields(self, client):
         """Test flagging with missing required fields."""
-        data = {'tip_id': 1}  # Missing reason
+        category = Category.objects.create(name='Test', slug='test')
+        tip = Tip.objects.create(title='Test Tip', description='Test', category=category)
+        data = {'reason': ''}  # Empty reason
         
         response = client.post(
-            '/api/tips/flag/',
+            f'/api/tips/{tip.id}/flag/',
             data=json.dumps(data),
             content_type='application/json'
         )
@@ -500,12 +502,11 @@ class TestFlagContent:
     def test_flag_content_tip_not_found(self, client):
         """Test flagging non-existent tip returns 404."""
         data = {
-            'tip_id': 99999,
             'reason': 'Inappropriate content'
         }
         
         response = client.post(
-            '/api/tips/flag/',
+            '/api/tips/99999/flag/',
             data=json.dumps(data),
             content_type='application/json'
         )

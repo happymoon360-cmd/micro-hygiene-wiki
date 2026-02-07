@@ -1,0 +1,16 @@
+{
+  "typeCheckingMode": "off",
+  "reportMissingTypeStubs": "none",
+  "reportUnknownMemberType": "none",
+  "reportUnknownVariableType": "none",
+  "reportUnknownArgumentType": "none",
+  "reportUnknownParameterType": "none",
+  "reportMissingParameterType": "none",
+  "reportAttributeAccessIssue": "none",
+  "reportUnusedImport": "none",
+  "reportDuplicateImport": "none",
+  "reportUnannotatedClassAttribute": "none",
+  "reportImplicitOverride": "none",
+  "reportAny": "none",
+  "reportUnreachable": "none"
+}

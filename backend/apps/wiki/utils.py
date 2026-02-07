@@ -10,6 +10,8 @@ import os
 from pathlib import Path
 from typing import Dict, List, Optional
 
+from django.conf import settings
+
 
 class AffiliateLinkGenerator:
     """
@@ -376,12 +378,6 @@ class AIModerator:
                 logger.error(error_msg)
                 raise RuntimeError(error_msg)
 
-            except Exception as e:
-                error_msg = f"Failed to initialize Hugging Face classifier: {e}"
-                cls._initialization_error = error_msg
-                logger.error(error_msg)
-                raise RuntimeError(error_msg)
-
     def moderate_text(self, text: str, threshold: float = 0.5) -> Dict[str, any]:
         """
         Moderate text using zero-shot classification.
@@ -448,58 +444,6 @@ class AIModerator:
                 'confidence': 0.0,
                 'category': None,
                 'all_scores': {}
-            }
-        if not text or not text.strip():
-            return {
-                "is_flagged": False,
-                "reason": "Empty content",
-                "confidence": 0.0,
-                "category": None,
-                "all_scores": {},
-            }
-
-        try:
-            classifier = self.get_classifier()
-
-            # Run zero-shot classification
-            result = classifier(
-                text, candidate_labels=self.categories, multi_label=False
-            )
-
-            # Find highest scoring category (excluding 'safe content')
-            flagged_categories = [
-                cat for cat in self.categories if cat != "safe content"
-            ]
-
-            top_result = result["labels"][0]
-            top_score = result["scores"][0]
-
-            # Check if content is flagged (not safe)
-            is_flagged = top_result in flagged_categories and top_score >= threshold
-
-            return {
-                "is_flagged": is_flagged,
-                "reason": f"Content flagged as: {top_result}",
-                "confidence": top_score,
-                "category": top_result if is_flagged else None,
-                "all_scores": dict(zip(result["labels"], result["scores"])),
-            }
-
-        except RuntimeError as e:
-            # Fall back to simple keyword check if AI classifier fails
-            logger.warning(
-                f"AI classifier unavailable, falling back to keyword check: {e}"
-            )
-            return self._fallback_keyword_check(text)
-
-        except Exception as e:
-            logger.error(f"Error during AI moderation: {e}")
-            return {
-                "is_flagged": False,
-                "reason": "Moderation error",
-                "confidence": 0.0,
-                "category": None,
-                "all_scores": {},
             }
 
     def _fallback_keyword_check(self, text: str) -> Dict[str, any]:

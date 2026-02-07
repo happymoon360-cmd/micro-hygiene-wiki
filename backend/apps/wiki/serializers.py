@@ -55,6 +55,7 @@ class TipListSerializer(serializers.ModelSerializer):
             "title",
             "slug",
             "category_name",
+            "vote_score",
             "effectiveness_avg",
             "difficulty_avg",
             "success_rate",

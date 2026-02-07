@@ -51,6 +51,15 @@ export interface Vote {
   created_at: string;
 }
 
+export interface AffiliateProduct {
+  id: number;
+  name: string;
+  affiliate_url: string;
+  network: string;
+  keywords: string[];
+  is_active: boolean;
+}
+
 export interface TipListResponse {
   count: number;
   total_pages: number;
@@ -159,6 +168,11 @@ export async function post<T>(endpoint: string, data: unknown): Promise<T> {
  */
 export async function getCategories(): Promise<Category[]> {
   const response = await get<Category[]>('/categories/');
+  return response;
+}
+
+export async function getAffiliateProducts(): Promise<AffiliateProduct[]> {
+  const response = await get<AffiliateProduct[]>('/products/');
   return response;
 }
 

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { getTips, getCategory, type TipList } from '../api/client';
+import { useParams, useLocation } from 'react-router-dom';
+import { getCategory, type CategoryDetail, type TipList } from '../api/client';
 
 /**
  * CategoryPage Component
@@ -8,15 +8,27 @@ import { getTips, getCategory, type TipList } from '../api/client';
  */
 export default function CategoryPage() {
   const { slug } = useParams<{ slug: string }>();
+  const location = useLocation();
   const [tips, setTips] = useState<TipList[]>([]);
-  const [category, setCategory] = useState<{ id: number; name: string; slug: string; description: string } | null>(null);
+  const [category, setCategory] = useState<CategoryDetail | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
   useEffect(() => {
-    fetchCategoryAndTips();
+    const pageParam = new URLSearchParams(location.search).get('page');
+    const parsed = pageParam ? parseInt(pageParam, 10) : 1;
+    const nextPage = Number.isFinite(parsed) && parsed > 0 ? parsed : 1;
+    setCurrentPage((prev) => (prev === nextPage ? prev : nextPage));
+  }, [location.search]);
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [slug]);
+
+  useEffect(() => {
+    fetchCategoryAndTips();
+  }, [slug, currentPage]);
 
   const fetchCategoryAndTips = async () => {
     try {
@@ -30,19 +42,14 @@ export default function CategoryPage() {
       const categoryData = await getCategory(slug);
       setCategory(categoryData);
 
-      // Fetch tips for this category
-      const tipsData = await getTips(1);
-      setTips(tipsData.results || []);
+      // Use tips from category response
+      setTips(categoryData.tips || []);
+      setLoading(false);
     } catch (err) {
       setLoading(false);
       setError('Failed to load category. Please try again.');
       console.error(err);
     }
-  };
-
-  const handlePageChange = (newPage: number) => {
-    setCurrentPage(newPage);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   if (loading) {
@@ -74,25 +81,8 @@ export default function CategoryPage() {
               <span className="difficulty">Difficulty: {tip.difficulty_avg.toFixed(1)}/5</span>
               <span className="success-rate">Success Rate: {tip.success_rate.toFixed(0)}%</span>
             </div>
-            <p className="tip-description">{tip.slug}</p>
           </div>
         ))}
-      </div>
-
-      <div className="pagination">
-        <button
-          onClick={() => handlePageChange(currentPage - 1)}
-          disabled={currentPage === 1}
-        >
-          Previous
-        </button>
-        <span>Page {currentPage}</span>
-        <button
-          onClick={() => handlePageChange(currentPage + 1)}
-          disabled={!category || tips.length < 20}
-        >
-          Next
-        </button>
       </div>
 
       <style>{`
@@ -149,33 +139,6 @@ export default function CategoryPage() {
           font-weight: 600;
         }
 
-        .pagination {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          gap: 1rem;
-          margin-top: 2rem;
-          padding-top: 1rem;
-          border-top: 1px solid #ddd;
-        }
-
-        .pagination button {
-          padding: 0.5rem 1rem;
-          background-color: #007bff;
-          color: white;
-          border: none;
-          border-radius: 4px;
-          cursor: pointer;
-        }
-
-        .pagination button:hover:not(:disabled) {
-          background-color: #0056b3;
-        }
-
-        .pagination button:disabled {
-          background-color: #6c757d;
-          cursor: not-allowed;
-        }
       `}</style>
     </div>
   );

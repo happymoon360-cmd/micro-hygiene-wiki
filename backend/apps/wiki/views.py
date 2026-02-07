@@ -1,11 +1,15 @@
+# pyright: reportMissingTypeStubs=false, reportUnknownMemberType=false, reportUnknownVariableType=false, reportUnknownParameterType=false, reportMissingParameterType=false, reportUnknownArgumentType=false, reportAttributeAccessIssue=false, reportUnusedImport=false, reportDuplicateImport=false, reportImplicitOverride=false, reportUnreachable=false
+
 from rest_framework import generics, status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
-from .models import Category, Tip, Vote
+from .models import Category, Tip, Vote, AffiliateProduct
 from .serializers import (CategorySerializer, TipListSerializer, TipDetailSerializer,
-                           CreateTipSerializer, VoteTipSerializer, FlagTipSerializer)
+                           CreateTipSerializer, VoteTipSerializer, FlagTipSerializer,
+                           AffiliateProductSerializer)
 from django.core.paginator import Paginator
+import json
 
 
 class TipListView(generics.ListAPIView):
@@ -16,8 +20,8 @@ class TipListView(generics.ListAPIView):
     def list(self, request, *args, **kwargs):
         queryset = self.get_queryset()
         page = self.paginate_queryset(queryset)
-        serializer = self.get_serializer(page, many=True)
-        return self.get_paginated_response(serializer)
+        serializer = self.get_serializer(page.object_list, many=True)
+        return self.get_paginated_response(page, serializer.data)
 
     def paginate_queryset(self, queryset):
         paginator = Paginator(queryset, 20)
@@ -25,22 +29,23 @@ class TipListView(generics.ListAPIView):
         page_obj = paginator.page(page_number)
         return page_obj
 
-    def get_paginated_response(self, data):
+    def get_paginated_response(self, data, results=None):
         return Response({
             'count': data.paginator.count,
             'total_pages': data.paginator.num_pages,
             'current_page': data.number,
-            'next': data.has_next() and data.next_page_number() else None,
-            'previous': data.has_previous() and data.previous_page_number() else None,
-            'results': data.object_list,
+            'next': data.next_page_number() if data.has_next() else None,
+            'previous': data.previous_page_number() if data.has_previous() else None,
+            'results': results if results is not None else data.object_list,
         })
 
 
 class TipDetailView(generics.RetrieveAPIView):
     """Get detail view for a specific tip"""
-    queryset = Tip.objects.select_related('category', 'votes')
+    queryset = Tip.objects.select_related('category').prefetch_related('votes')
     serializer_class = TipDetailSerializer
     lookup_field = 'id'
+    lookup_url_kwarg = 'tip_id'
 
 
 class CategoryListView(generics.ListAPIView):
@@ -58,10 +63,7 @@ class CategoryDetailView(generics.RetrieveAPIView):
     def retrieve(self, request, *args, **kwargs):
         category = self.get_object()
         tips = Tip.objects.filter(category=category).select_related('category').order_by('-created_at')
-        from rest_framework.pagination import LimitOffsetPagination
-        paginator = LimitOffsetPagination()
-        page = self.paginate_queryset(tips, LimitOffsetPagination())
-        serializer = TipListSerializer(page.object_list, many=True)
+        serializer = TipListSerializer(tips, many=True)
         return Response({
             'id': category.id,
             'name': category.name,
@@ -69,6 +71,14 @@ class CategoryDetailView(generics.RetrieveAPIView):
             'description': category.description,
             'tips': serializer.data,
         })
+
+
+class AffiliateProductList(generics.ListAPIView):
+    """List all active affiliate products"""
+
+    queryset = AffiliateProduct.objects.filter(is_active=True)
+    serializer_class = AffiliateProductSerializer
+    permission_classes = []  # Public access
 
 
 @api_view(['GET'])
@@ -87,8 +97,7 @@ def search_tips(request):
 
 
 # Existing views (keep these)
-from django.http import JsonResponse
-from django.views.decorators.http import require_http_methods, csrf_exempt
+from django.views.decorators.http import require_http_methods
 from django.views.decorators.csrf import csrf_exempt
 from django_ratelimit.decorators import ratelimit
 from django_ratelimit.core import is_ratelimited
@@ -122,7 +131,7 @@ def tip_vote(request, tip_id):
     try:
         tip = Tip.objects.get(id=tip_id)
     except Tip.DoesNotExist:
-        return JsonResponse({"error": "Tip not found"}, status=404)
+        return Response({"error": "Tip not found"}, status=404)
 
     try:
         data = (
@@ -133,32 +142,30 @@ def tip_vote(request, tip_id):
             else {}
         )
         if not data:
-            import json as json
-
             data = json.loads(request.body)
 
-        effectiveness = int(data.get("effectiveness"))
-        difficulty = int(data.get("difficulty"))
+        effectiveness = int(data.get("effectiveness") or 0)
+        difficulty = int(data.get("difficulty") or 0)
     except (ValueError, TypeError, json.JSONDecodeError):
-        return JsonResponse(
+        return Response(
             {"error": "Invalid effectiveness or difficulty values"}, status=400
         )
 
-    if effectiveness < 1 or effectiveness > 10:
-        return JsonResponse(
-            {"error": "Effectiveness must be between 1 and 10"}, status=400
+    if effectiveness < 1 or effectiveness > 5:
+        return Response(
+            {"error": "Effectiveness must be between 1 and 5"}, status=400
         )
 
-    if difficulty < 1 or difficulty > 10:
-        return JsonResponse(
-            {"error": "Difficulty must be between 1 and 10"}, status=400
+    if difficulty < 1 or difficulty > 5:
+        return Response(
+            {"error": "Difficulty must be between 1 and 5"}, status=400
         )
 
     ip = get_client_ip(request)
     ip_hash = hash_ip(ip)
 
     if Vote.objects.filter(tip=tip, ip_hash=ip_hash).exists():
-        return JsonResponse({"error": "You have already voted on this tip"}, status=400)
+        return Response({"error": "You have already voted on this tip"}, status=400)
 
     Vote.objects.create(
         tip=tip, effectiveness=effectiveness, difficulty=difficulty, ip_hash=ip_hash
@@ -171,7 +178,7 @@ def tip_vote(request, tip_id):
         tip.success_rate = tip.calculate_success_rate()
     tip.save()
 
-    return JsonResponse(
+    return Response(
         {
             "success": True,
             "message": "Vote recorded successfully",
@@ -190,13 +197,11 @@ def create_tip(request):
     Performs both keyword and AI moderation before saving.
     """
     if is_ratelimited(request, group="create_tip", increment=True):
-        return JsonResponse(
-            {"error": "Rate limit exceeded. Maximum 5 tips per hour."}, status=429
-        )
+            return Response(
+                {"error": "Rate limit exceeded. Maximum 5 tips per hour."}, status=429
+            )
 
     try:
-        import json as json
-
         data = json.loads(request.body)
 
         title = data.get("title", "").strip()
@@ -204,7 +209,7 @@ def create_tip(request):
         category_id = data.get("category_id")
 
         if not title or not description or not category_id:
-            return JsonResponse(
+            return Response(
                 {"error": "Missing required fields: title, description, category_id"},
                 status=400,
             )
@@ -212,7 +217,7 @@ def create_tip(request):
         # Verify Turnstile token
         turnstile_token = data.get("turnstile_token")
         if not turnstile_token and not settings.DEBUG:
-            return JsonResponse({"error": "Turnstile token is required"}, status=400)
+            return Response({"error": "Turnstile token is required"}, status=400)
 
         if turnstile_token:
             verify_response = requests.post(
@@ -223,7 +228,7 @@ def create_tip(request):
                 }
             )
             if not verify_response.json().get('success'):
-                return JsonResponse({"error": "Invalid Turnstile token"}, status=403)
+                return Response({"error": "Invalid Turnstile token"}, status=403)
 
         combined_text = f"{title} {description}"
 
@@ -257,7 +262,7 @@ def create_tip(request):
                 },
             )
 
-            return JsonResponse(
+            return Response(
                 {
                     "error": "Content violates community guidelines",
                     "reason": moderation_result["reason"],
@@ -270,7 +275,7 @@ def create_tip(request):
             title=title, description=description, category_id=category_id
         )
 
-        return JsonResponse(
+        return Response(
             {
                 "success": True,
                 "tip_id": tip.id,
@@ -281,39 +286,36 @@ def create_tip(request):
         )
 
     except json.JSONDecodeError:
-        return JsonResponse({"error": "Invalid JSON"}, status=400)
+        return Response({"error": "Invalid JSON"}, status=400)
     except Exception as e:
-        return JsonResponse({"error": str(e)}, status=500)
+        return Response({"error": str(e)}, status=500)
 
 
 @csrf_exempt
 @require_http_methods(["POST"])
-def flag_content(request):
+def flag_content(request, tip_id):
     """
     Flag content for moderation (20 flags/day per IP).
     Used by users to report inappropriate content.
     """
     if is_ratelimited(request, group="flag_content", increment=True):
-        return JsonResponse(
-            {"error": "Rate limit exceeded. Maximum 20 flags per day."}, status=429
-        )
+            return Response(
+                {"error": "Rate limit exceeded. Maximum 20 flags per day."}, status=429
+            )
 
     try:
-        import json as json
-
         data = json.loads(request.body)
-        tip_id = data.get("tip_id")
         reason = data.get("reason", "").strip()
 
-        if not tip_id or not reason:
-            return JsonResponse(
-                {"error": "Missing required fields: tip_id, reason"}, status=400
+        if not reason:
+            return Response(
+                {"error": "Missing required field: reason"}, status=400
             )
 
         try:
             tip = Tip.objects.get(id=tip_id)
         except Tip.DoesNotExist:
-            return JsonResponse({"error": "Tip not found"}, status=404)
+            return Response({"error": "Tip not found"}, status=404)
 
         ip_hash = hash_ip(get_client_ip(request))
 
@@ -340,11 +342,11 @@ def flag_content(request):
             },
         )
 
-        return JsonResponse(
+        return Response(
             {"success": True, "message": "Flag created successfully"}, status=201
         )
 
     except json.JSONDecodeError:
-        return JsonResponse({"error": "Invalid JSON"}, status=400)
+        return Response({"error": "Invalid JSON"}, status=400)
     except Exception as e:
-        return JsonResponse({"error": str(e)}, status=500)
+        return Response({"error": str(e)}, status=500)

@@ -1,14 +1,6 @@
 import { useState, useEffect } from 'react';
-import type { Category } from '../api/client';
 
-interface AffiliateProduct {
-  id: number;
-  name: string;
-  affiliate_url: string;
-  network: string;
-  keywords: string[];
-  is_active: boolean;
-}
+import { getAffiliateProducts, type AffiliateProduct } from '../api/client';
 
 /**
  * ProductsPage Component
@@ -28,29 +20,15 @@ export default function ProductsPage() {
       setLoading(true);
       setError('');
 
-      const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:8000/api'}/categories/`);
-      const categoriesData: Category[] = await response.json();
-      void categoriesData;
-
-      // Extract all affiliate products from categories
-      const allProductsData: AffiliateProduct[] = [];
-      void allProductsData;
-
-      // Mock affiliate products for demonstration
-      // In production, these would come from the backend
-      const mockProducts: AffiliateProduct[] = [
-        { id: 1, name: 'Kitchen Cleaner', affiliate_url: 'https://example.com/kitchen-cleaner', network: 'Amazon', keywords: ['kitchen', 'cleaning'], is_active: true },
-        { id: 2, name: 'Hand Sanitizer', affiliate_url: 'https://example.com/hand-sanitizer', network: 'Amazon', keywords: ['hand', 'sanit'], is_active: true },
-        { id: 3, name: 'Disinfectant Wipes', affiliate_url: 'https://example.com/wipes', network: 'Amazon', keywords: ['disinfect', 'wipes'], is_active: true },
-        { id: 4, name: 'Toothbrush Kit', affiliate_url: 'https://example.com/toothbrush', network: 'Amazon', keywords: ['toothbrush', 'dental'], is_active: true },
-        { id: 5, name: 'Shampoo', affiliate_url: 'https://example.com/shampoo', network: 'Amazon', keywords: ['hair', 'shampoo'], is_active: true },
-      ];
-
-      setProducts(mockProducts);
+      // Replace mock products with real API call
+      const data = await getAffiliateProducts();
+      setProducts(data);
     } catch (err) {
       setLoading(false);
       setError('Failed to load products. Please try again.');
       console.error(err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -85,10 +63,10 @@ export default function ProductsPage() {
               <p className="product-keywords">
                 Keywords: {product.keywords.join(', ')}
               </p>
-              <a
+          <a
                 href={product.affiliate_url}
                 target="_blank"
-                rel="noopener noreferrer"
+                rel="noopener noreferrer nofollow sponsored"
                 className="affiliate-link"
               >
                 View Product →

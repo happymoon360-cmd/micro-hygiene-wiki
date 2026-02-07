@@ -102,6 +102,7 @@ class Command(BaseCommand):
                 title=title,
                 description=description,
                 category=category,
+                slug=slugify(title),
                 effectiveness_avg=0.0,
                 difficulty_avg=0.0,
                 success_rate=0.0,

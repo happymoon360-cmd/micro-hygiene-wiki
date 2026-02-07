@@ -3,6 +3,7 @@ import { HelmetProvider } from 'react-helmet-async';
 import HomePage from './components/HomePage';
 import TipDetailPage from './components/TipDetailPage';
 import CategoryPage from './components/CategoryPage';
+import CategoriesListPage from './components/CategoriesListPage';
 import ProductsPage from './components/ProductsPage';
 import SubmitForm from './components/SubmitForm';
 import MedicalDisclaimer from './components/MedicalDisclaimer';
@@ -43,6 +44,8 @@ export default function App() {
 
             {/* Submit tip form */}
             <Route path="/submit" element={<SubmitForm />} />
+
+            <Route path="/categories" element={<CategoriesListPage />} />
 
             {/* About page */}
             <Route

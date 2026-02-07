@@ -22,6 +22,8 @@ urlpatterns = [
         views.CategoryDetailView.as_view(),
         name="category-detail",
     ),
+    # Products endpoint
+    path("api/products/", views.AffiliateProductList.as_view(), name="product-list"),
     # Search endpoint
-    path("api/tips/search/", views.SearchView.as_view(), name="tip-search"),
+    path("api/tips/search/", views.search_tips, name="tip-search"),
 ]

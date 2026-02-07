@@ -36,7 +36,9 @@ export default function SubmitForm() {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
-    if (!turnstileToken) {
+    // Dev bypass: allow submitting without Turnstile locally.
+    // TODO: Remove this bypass when Turnstile is wired up in the UI.
+    if (!turnstileToken && !import.meta.env.DEV) {
       setTurnstileError('Please complete the CAPTCHA verification');
       return;
     }
@@ -128,7 +130,7 @@ export default function SubmitForm() {
 
         {error && <div className="error-message">{error}</div>}
 
-        <button type="submit" disabled={isSubmitting || !turnstileToken}>
+        <button type="submit" disabled={isSubmitting || (!turnstileToken && !import.meta.env.DEV)}>
           {isSubmitting ? 'Submitting...' : 'Submit Tip'}
         </button>
       </form>

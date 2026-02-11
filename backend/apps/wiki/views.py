@@ -105,8 +105,10 @@ from django.utils import timezone
 from .models import Tip, Vote, ModerationFlag, ModerationLog
 from .utils import moderate_content
 import hashlib
-import requests
+import logging
 from django.conf import settings
+
+logger = logging.getLogger(__name__)
 
 
 def get_client_ip(request):
@@ -212,12 +214,25 @@ def create_tip(request):
                 status=400,
             )
 
+        # Validate category early to avoid returning 500 for bad input.
+        category = Category.objects.filter(id=category_id).first()
+        if not category:
+            return Response({"error": "Invalid category_id"}, status=400)
+
         # Verify Turnstile token
         turnstile_token = data.get("turnstile_token")
         if not turnstile_token and not settings.DEBUG:
             return Response({"error": "Turnstile token is required"}, status=400)
 
         if turnstile_token:
+            try:
+                import requests  # Lazy import prevents startup failure if dependency is missing.
+            except ImportError:
+                logger.exception("requests dependency is missing while verifying Turnstile.")
+                return Response(
+                    {"error": "CAPTCHA verification unavailable"}, status=503
+                )
+
             verify_response = requests.post(
                 'https://challenges.cloudflare.com/turnstile/v0/siteverify',
                 data={
@@ -269,9 +284,7 @@ def create_tip(request):
                 status=403,
             )
 
-        tip = Tip.objects.create(
-            title=title, description=description, category_id=category_id
-        )
+        tip = Tip.objects.create(title=title, description=description, category=category)
 
         return Response(
             {
@@ -285,8 +298,9 @@ def create_tip(request):
 
     except json.JSONDecodeError:
         return Response({"error": "Invalid JSON"}, status=400)
-    except Exception as e:
-        return Response({"error": str(e)}, status=500)
+    except Exception:
+        logger.exception("Unexpected error while creating tip.")
+        return Response({"error": "Internal server error"}, status=500)
 
 
 @api_view(['POST'])
@@ -345,5 +359,6 @@ def flag_content(request, tip_id):
 
     except json.JSONDecodeError:
         return Response({"error": "Invalid JSON"}, status=400)
-    except Exception as e:
-        return Response({"error": str(e)}, status=500)
+    except Exception:
+        logger.exception("Unexpected error while flagging content.")
+        return Response({"error": "Internal server error"}, status=500)

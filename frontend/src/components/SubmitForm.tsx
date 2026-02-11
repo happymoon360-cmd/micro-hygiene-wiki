@@ -1,5 +1,27 @@
-import { useState, FormEvent, useEffect } from 'react';
+import { useState, FormEvent, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+
+type TurnstileWidgetId = string | number;
+type TurnstileRenderOptions = {
+  sitekey: string;
+  callback: (token: string) => void;
+  'expired-callback'?: () => void;
+  'error-callback'?: () => void;
+};
+
+type TurnstileApi = {
+  render: (container: HTMLElement, options: TurnstileRenderOptions) => TurnstileWidgetId;
+  remove: (widgetId: TurnstileWidgetId) => void;
+  reset: (widgetId?: TurnstileWidgetId) => void;
+};
+
+declare global {
+  interface Window {
+    turnstile?: TurnstileApi;
+  }
+}
+
+const TURNSTILE_SCRIPT_ID = 'cf-turnstile-script';
 
 /**
  * SubmitForm Component
@@ -7,25 +29,106 @@ import { useNavigate } from 'react-router-dom';
  */
 export default function SubmitForm() {
   const navigate = useNavigate();
+  const apiBaseUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000/api';
+  const turnstileSiteKey = import.meta.env.VITE_TURNSTILE_SITE_KEY;
   const [formData, setFormData] = useState({
     title: '',
     description: '',
-    category_id: 0,
+    category_id: '',
   });
-  const [turnstileToken, _setTurnstileToken] = useState('');
+  const [turnstileToken, setTurnstileToken] = useState('');
   const [turnstileError, setTurnstileError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
   const [categories, setCategories] = useState<{ id: number; name: string; slug: string }[]>([]);
+  const turnstileContainerRef = useRef<HTMLDivElement | null>(null);
+  const turnstileWidgetIdRef = useRef<TurnstileWidgetId | null>(null);
 
   // Load categories on mount
   useEffect(() => {
     fetchCategories();
   }, []);
 
+  useEffect(() => {
+    if (!turnstileSiteKey) {
+      if (!import.meta.env.DEV) {
+        setTurnstileError('CAPTCHA is not configured. Please contact support.');
+      }
+      return;
+    }
+
+    const renderWidget = () => {
+      if (!window.turnstile || !turnstileContainerRef.current) {
+        return;
+      }
+      if (turnstileWidgetIdRef.current !== null) {
+        return;
+      }
+
+      turnstileWidgetIdRef.current = window.turnstile.render(turnstileContainerRef.current, {
+        sitekey: turnstileSiteKey,
+        callback: (token: string) => {
+          setTurnstileToken(token);
+          setTurnstileError('');
+        },
+        'expired-callback': () => {
+          setTurnstileToken('');
+        },
+        'error-callback': () => {
+          setTurnstileToken('');
+          setTurnstileError('CAPTCHA verification failed. Please retry.');
+        },
+      });
+    };
+
+    if (window.turnstile) {
+      renderWidget();
+      return () => {
+        if (window.turnstile && turnstileWidgetIdRef.current !== null) {
+          window.turnstile.remove(turnstileWidgetIdRef.current);
+          turnstileWidgetIdRef.current = null;
+        }
+      };
+    }
+
+    let script = document.getElementById(TURNSTILE_SCRIPT_ID) as HTMLScriptElement | null;
+    const onLoad = () => renderWidget();
+    const onError = () => {
+      setTurnstileError('Failed to load CAPTCHA script. Please refresh.');
+    };
+
+    if (!script) {
+      script = document.createElement('script');
+      script.id = TURNSTILE_SCRIPT_ID;
+      script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+      script.async = true;
+      script.defer = true;
+      script.addEventListener('load', onLoad);
+      script.addEventListener('error', onError);
+      document.head.appendChild(script);
+    } else {
+      script.addEventListener('load', onLoad);
+      script.addEventListener('error', onError);
+      if (window.turnstile) {
+        renderWidget();
+      }
+    }
+
+    return () => {
+      if (script) {
+        script.removeEventListener('load', onLoad);
+        script.removeEventListener('error', onError);
+      }
+      if (window.turnstile && turnstileWidgetIdRef.current !== null) {
+        window.turnstile.remove(turnstileWidgetIdRef.current);
+        turnstileWidgetIdRef.current = null;
+      }
+    };
+  }, [turnstileSiteKey]);
+
   const fetchCategories = async () => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:8000/api'}/categories/`);
+      const response = await fetch(`${apiBaseUrl}/categories/`);
       const data = await response.json();
       setCategories(data);
     } catch (err) {
@@ -48,13 +151,14 @@ export default function SubmitForm() {
     setTurnstileError('');
 
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:8000/api'}/tips/create/`, {
+      const response = await fetch(`${apiBaseUrl}/tips/create/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           ...formData,
+          category_id: Number(formData.category_id),
           turnstile_token: turnstileToken,
         }),
       });
@@ -65,6 +169,10 @@ export default function SubmitForm() {
         if (errorData.error?.includes('turnstile')) {
           setTurnstileError(errorData.error);
         }
+        if (window.turnstile && turnstileWidgetIdRef.current !== null) {
+          window.turnstile.reset(turnstileWidgetIdRef.current);
+        }
+        setTurnstileToken('');
       } else {
         // Success - redirect to home
         navigate('/');
@@ -110,7 +218,7 @@ export default function SubmitForm() {
           <select
             id="category"
             value={formData.category_id}
-            onChange={(e) => setFormData({ ...formData, category_id: parseInt(e.target.value) })}
+            onChange={(e) => setFormData({ ...formData, category_id: e.target.value })}
             required
           >
             <option value="">Select a category</option>
@@ -124,7 +232,7 @@ export default function SubmitForm() {
 
         <div className="form-group">
           <label>Cloudflare Turnstile CAPTCHA *</label>
-          <div className="turnstile-container" id="turnstile-widget"></div>
+          <div ref={turnstileContainerRef} className="turnstile-container" id="turnstile-widget"></div>
           {turnstileError && <div className="error-message">{turnstileError}</div>}
         </div>
 

@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { getCategory, type CategoryDetail, type TipList } from '../api/client';
+
+const PAGE_SIZE = 20;
 
 /**
  * CategoryPage Component
@@ -8,27 +10,27 @@ import { getCategory, type CategoryDetail, type TipList } from '../api/client';
  */
 export default function CategoryPage() {
   const { slug } = useParams<{ slug: string }>();
-  const location = useLocation();
   const [tips, setTips] = useState<TipList[]>([]);
   const [category, setCategory] = useState<CategoryDetail | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const totalPages = Math.max(1, Math.ceil(tips.length / PAGE_SIZE));
+  const paginatedTips = tips.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE);
 
   useEffect(() => {
-    const pageParam = new URLSearchParams(location.search).get('page');
-    const parsed = pageParam ? parseInt(pageParam, 10) : 1;
-    const nextPage = Number.isFinite(parsed) && parsed > 0 ? parsed : 1;
-    setCurrentPage((prev) => (prev === nextPage ? prev : nextPage));
-  }, [location.search]);
+    if (currentPage > totalPages) {
+      setCurrentPage(totalPages);
+    }
+  }, [currentPage, totalPages]);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, [slug]);
+  }, [slug, currentPage]);
 
   useEffect(() => {
     fetchCategoryAndTips();
-  }, [slug, currentPage]);
+  }, [slug]);
 
   const fetchCategoryAndTips = async () => {
     try {
@@ -44,6 +46,7 @@ export default function CategoryPage() {
 
       // Use tips from category response
       setTips(categoryData.tips || []);
+      setCurrentPage(1);
       setLoading(false);
     } catch (err) {
       setLoading(false);
@@ -73,7 +76,7 @@ export default function CategoryPage() {
       </header>
 
       <div className="tips-list">
-        {tips.map((tip) => (
+        {paginatedTips.map((tip) => (
           <div key={tip.id} className="tip-card">
             <h3>{tip.title}</h3>
             <div className="meta">
@@ -84,6 +87,20 @@ export default function CategoryPage() {
           </div>
         ))}
       </div>
+
+      {tips.length > PAGE_SIZE && (
+        <div className="pagination">
+          <button onClick={() => setCurrentPage((prev) => prev - 1)} disabled={currentPage <= 1}>
+            Previous
+          </button>
+          <span>
+            Page {currentPage} / {totalPages}
+          </span>
+          <button onClick={() => setCurrentPage((prev) => prev + 1)} disabled={currentPage >= totalPages}>
+            Next
+          </button>
+        </div>
+      )}
 
       <style>{`
         .category-page {
@@ -137,6 +154,27 @@ export default function CategoryPage() {
         .success-rate {
           color: #198754;
           font-weight: 600;
+        }
+
+        .pagination {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 0.8rem;
+          margin-top: 1.5rem;
+        }
+
+        .pagination button {
+          padding: 0.45rem 0.8rem;
+          border-radius: 6px;
+          border: 1px solid #d1d5db;
+          background-color: #fff;
+          cursor: pointer;
+        }
+
+        .pagination button:disabled {
+          cursor: not-allowed;
+          opacity: 0.5;
         }
 
       `}</style>

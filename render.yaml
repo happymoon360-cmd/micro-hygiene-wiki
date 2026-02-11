@@ -2,10 +2,11 @@ services:
   - type: web
     name: micro-hygiene-wiki-api
     runtime: python
+    rootDir: backend
     plan: free
     region: singapore  # 아시아 지역 (빠른 응답)
     buildCommand: "pip install -r requirements.txt"
-    startCommand: "gunicorn config.wsgi:application --bind 0.0.0.0:$PORT --workers 2"
+    startCommand: "python manage.py migrate --noinput && gunicorn config.wsgi:application --bind 0.0.0.0:$PORT --workers 2"
     envVars:
       - key: PYTHON_VERSION
         value: 3.14.0
@@ -20,7 +21,7 @@ services:
           name: micro-hygiene-wiki-db
           property: connectionString
       - key: FRONTEND_URL
-        value: "https://frontend-hrhbee6px-seokjuns-projects-98431b2d.vercel.app"
+        value: "https://frontend-gray-pi-69.vercel.app"
       - key: TURNSTILE_SECRET_KEY
         sync: false  # 수동 입력 필요
       - key: DISABLE_COLLECTSTATIC

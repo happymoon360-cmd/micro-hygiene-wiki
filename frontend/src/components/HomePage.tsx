@@ -11,8 +11,10 @@ export default function HomePage() {
   const [tips, setTips] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [searchInput, setSearchInput] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
+  const isSearching = searchQuery.trim().length > 0;
 
   const fetchTips = async () => {
     try {
@@ -43,6 +45,7 @@ export default function HomePage() {
 
   const handleSearch = (e: FormEvent) => {
     e.preventDefault();
+    setSearchQuery(searchInput.trim());
     setCurrentPage(1);
   };
 
@@ -78,8 +81,8 @@ export default function HomePage() {
             <input
               type="search"
               placeholder="Search tips..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              value={searchInput}
+              onChange={(e) => setSearchInput(e.target.value)}
             />
             <button type="submit">Search</button>
           </form>
@@ -108,7 +111,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        {tips.length > 0 && (
+        {tips.length > 0 && !isSearching && (
           <div className="pagination">
             <button onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>
               Previous

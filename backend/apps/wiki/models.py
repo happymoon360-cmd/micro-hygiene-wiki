@@ -35,6 +35,7 @@ class Tip(models.Model):
     title = models.CharField(max_length=255)
     slug = models.SlugField(max_length=255, blank=True)
     description = models.TextField()
+    image = models.CharField(max_length=500, blank=True, default='')
     category = models.ForeignKey(
         Category, on_delete=models.CASCADE, related_name="tips"
     )

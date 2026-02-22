@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { getCategory, type CategoryDetail, type TipList } from '../api/client';
 
 const PAGE_SIZE = 20;
@@ -78,7 +78,14 @@ export default function CategoryPage() {
       <div className="tips-list">
         {paginatedTips.map((tip) => (
           <div key={tip.id} className="tip-card">
-            <h3>{tip.title}</h3>
+            {tip.image && (
+              <Link to={`/tips/${tip.id}-${tip.slug}`}>
+                <img src={tip.image} alt={tip.title} className="tip-card-thumbnail" />
+              </Link>
+            )}
+            <Link to={`/tips/${tip.id}-${tip.slug}`}>
+              <h3>{tip.title}</h3>
+            </Link>
             <div className="meta">
               <span className="effectiveness">Effectiveness: {tip.effectiveness_avg.toFixed(1)}/5</span>
               <span className="difficulty">Difficulty: {tip.difficulty_avg.toFixed(1)}/5</span>
@@ -125,13 +132,30 @@ export default function CategoryPage() {
         .tip-card {
           border: 1px solid #ddd;
           border-radius: 8px;
-          padding: 1.5rem;
+          padding: 0;
           background-color: #f9f9f9;
+          overflow: hidden;
+        }
+
+        .tip-card-thumbnail {
+          width: 100%;
+          height: 160px;
+          object-fit: cover;
+          display: block;
+        }
+
+        .tip-card h3,
+        .tip-card .meta {
+          padding: 0 1.5rem;
         }
 
         .tip-card h3 {
-          margin: 0 0 0.5rem 0;
+          margin: 1rem 0 0.5rem 0;
           color: #333;
+        }
+
+        .tip-card .meta {
+          padding-bottom: 1.5rem;
         }
 
         .meta {

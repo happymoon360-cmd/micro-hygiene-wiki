@@ -100,6 +100,11 @@ export default function HomePage() {
             ) : (
               tips.map((tip: any) => (
                 <div key={tip.id} className="tip-card">
+                  {tip.image && (
+                    <Link to={`/tips/${tip.id}-${tip.slug}`}>
+                      <img src={tip.image} alt={tip.title} className="tip-card-thumbnail" />
+                    </Link>
+                  )}
                   <span className="category-badge">{tip.category_name}</span>
                   <Link to={`/tips/${tip.id}-${tip.slug}`}>
                     <h3>{tip.title}</h3>

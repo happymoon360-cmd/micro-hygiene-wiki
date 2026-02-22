@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
+import Markdown from 'react-markdown';
 import { getTip, voteTip, type TipDetail } from '../api/client';
 
 /**
@@ -120,7 +121,9 @@ export default function TipDetailPage() {
         </header>
 
         <section className="content">
-          <p className="tip-description">{tip.description}</p>
+          <div className="tip-description">
+            <Markdown>{tip.description}</Markdown>
+          </div>
 
           <div className="stats-grid">
             <div className="stat-card">

@@ -21,6 +21,7 @@ export interface TipList {
   id: number;
   title: string;
   slug: string;
+  image: string;
   category_name: string;
   effectiveness_avg: number;
   difficulty_avg: number;
@@ -33,6 +34,7 @@ export interface TipDetail {
   title: string;
   slug: string;
   description: string;
+  image: string;
   category: Category;
   votes: Vote[];
   vote_count: number;

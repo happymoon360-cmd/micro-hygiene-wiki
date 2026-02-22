@@ -24,25 +24,25 @@ This guide begins with community-reported patterns, then applies second-level ve
 
 Prepare everything needed for use hand sanitizer when unavailable: soap or sanitizer, a clean towel, and access to clean water. When tools are ready first, you avoid rushed shortcuts and repeated backtracking. Set items on a clean, easy-to-reach surface so the sequence stays smooth.
 
-![image-1](PROMPT: Instructional illustration for a hygiene tutorial about use hand sanitizer when unavailable. Scene: organizing supplies needed for use hand sanitizer when unavailable on a clean surface. Camera framing: medium shot from chest level. Subject details: clean environment, practical action in progress, neutral expression, clear hand and tool positioning. Style lock: unified wiki visual system v1. Modern flat editorial illustration, soft pastel blue-green palette, rounded geometry, subtle shading, bright high-key lighting, very light neutral background, consistent character proportions, clean medical-hygiene tone. Composition: clear focal point, no clutter, no text overlay, no logos, no watermark. Quality: high clarity, educational, beginner-friendly, consistent with previous steps.)
+![organizing supplies needed for use hand sanitizer when unavailable on a clean surface](/images/tips/how-to-use-hand-sanitizer-when-unavailable-1.png)
 
 ### Step 2: Wash hands and prep the work area
 
 Clean hands first, then set up the immediate area you will touch most. This prevents early cross-contact and gives you a cleaner baseline for the rest of the routine. If possible, separate a clean zone from a used-items zone before beginning.
 
-![image-2](PROMPT: Instructional illustration for a hygiene tutorial about use hand sanitizer when unavailable. Scene: washing hands and preparing a clean setup zone for use hand sanitizer when unavailable. Camera framing: close-up from shoulder perspective. Subject details: clean environment, practical action in progress, neutral expression, clear hand and tool positioning. Style lock: unified wiki visual system v1. Modern flat editorial illustration, soft pastel blue-green palette, rounded geometry, subtle shading, bright high-key lighting, very light neutral background, consistent character proportions, clean medical-hygiene tone. Composition: clear focal point, no clutter, no text overlay, no logos, no watermark. Quality: high clarity, educational, beginner-friendly, consistent with previous steps.)
+![washing hands and preparing a clean setup zone for use hand sanitizer when unavailable](/images/tips/how-to-use-hand-sanitizer-when-unavailable-2.png)
 
 ### Step 3: Define your target standard before the first pass
 
 Decide what a completed result for use hand sanitizer when unavailable looks like before you begin. Clear targets improve consistency and help you notice missed areas early. Use a simple check: full coverage, proper timing, and clean finish.
 
-![image-3](PROMPT: Instructional illustration for a hygiene tutorial about use hand sanitizer when unavailable. Scene: reviewing a simple checklist before starting use hand sanitizer when unavailable. Camera framing: top-down workspace view. Subject details: clean environment, practical action in progress, neutral expression, clear hand and tool positioning. Style lock: unified wiki visual system v1. Modern flat editorial illustration, soft pastel blue-green palette, rounded geometry, subtle shading, bright high-key lighting, very light neutral background, consistent character proportions, clean medical-hygiene tone. Composition: clear focal point, no clutter, no text overlay, no logos, no watermark. Quality: high clarity, educational, beginner-friendly, consistent with previous steps.)
+![reviewing a simple checklist before starting use hand sanitizer when unavailable](/images/tips/how-to-use-hand-sanitizer-when-unavailable-3.png)
 
 ### Step 4: Perform the core action with full technique
 
 Apply the main action slowly and completely for use hand sanitizer when unavailable. Remember this anchor: When soap and water aren't available, use an alcohol-based hand sanitizer with at least 60% alcohol. Do not rush the first pass, because speed usually creates gaps that need rework later.
 
-![image-4](PROMPT: Instructional illustration for a hygiene tutorial about use hand sanitizer when unavailable. Scene: performing the core routine for use hand sanitizer when unavailable with controlled motions. Camera framing: wide medium shot from front. Subject details: clean environment, practical action in progress, neutral expression, clear hand and tool positioning. Style lock: unified wiki visual system v1. Modern flat editorial illustration, soft pastel blue-green palette, rounded geometry, subtle shading, bright high-key lighting, very light neutral background, consistent character proportions, clean medical-hygiene tone. Composition: clear focal point, no clutter, no text overlay, no logos, no watermark. Quality: high clarity, educational, beginner-friendly, consistent with previous steps.)
+![performing the core routine for use hand sanitizer when unavailable with controlled motions](/images/tips/how-to-use-hand-sanitizer-when-unavailable-4.png)
 
 ## Method 2 of 3: Execute the Core Routine
 
@@ -50,7 +50,7 @@ Apply the main action slowly and completely for use hand sanitizer when unavaila
 
 Most failures happen in edge zones, corners, undersides, or transition areas. After the core pass, revisit hidden points related to use hand sanitizer when unavailable and complete them deliberately. A short second pass improves outcomes much more than one rushed sweep.
 
-![image-5](PROMPT: Instructional illustration for a hygiene tutorial about use hand sanitizer when unavailable. Scene: targeting hidden spots during use hand sanitizer when unavailable with a second pass. Camera framing: angled side view at waist height. Subject details: clean environment, practical action in progress, neutral expression, clear hand and tool positioning. Style lock: unified wiki visual system v1. Modern flat editorial illustration, soft pastel blue-green palette, rounded geometry, subtle shading, bright high-key lighting, very light neutral background, consistent character proportions, clean medical-hygiene tone. Composition: clear focal point, no clutter, no text overlay, no logos, no watermark. Quality: high clarity, educational, beginner-friendly, consistent with previous steps.)
+![targeting hidden spots during use hand sanitizer when unavailable with a second pass](/images/tips/how-to-use-hand-sanitizer-when-unavailable-5.png)
 
 ### Step 6: Keep timing, pressure, and contact consistent
 

@@ -36,11 +36,55 @@
   margin-top: 2rem;
 }
 
-.tip-detail-page .description {
+.tip-detail-page .tip-description {
   font-size: 1.125rem;
   line-height: 1.75;
   color: #374151;
   margin-bottom: 2rem;
+}
+
+.tip-detail-page .tip-description img {
+  width: 100%;
+  max-height: 400px;
+  object-fit: cover;
+  border-radius: 0.75rem;
+  margin: 1.5rem 0;
+}
+
+.tip-detail-page .tip-description h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #111827;
+  margin: 2rem 0 0.75rem;
+}
+
+.tip-detail-page .tip-description h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 1.5rem 0 0.5rem;
+}
+
+.tip-detail-page .tip-description ul,
+.tip-detail-page .tip-description ol {
+  padding-left: 1.5rem;
+  margin: 0.75rem 0;
+}
+
+.tip-detail-page .tip-description li {
+  margin-bottom: 0.5rem;
+}
+
+.tip-detail-page .tip-description blockquote {
+  border-left: 4px solid #3b82f6;
+  padding-left: 1rem;
+  margin: 1rem 0;
+  color: #6b7280;
+  font-style: italic;
+}
+
+.tip-detail-page .tip-description strong {
+  color: #111827;
 }
 
 .tip-detail-page .stats-grid {
